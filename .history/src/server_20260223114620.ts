@@ -93,24 +93,24 @@ createServer(async function (
     }),
   );
   response.write(await handleGetSingleTask("test"));
-  response.write(
-    await handleAddTask({
-      name: "cleaning",
-      description: "Clean the house",
-      pay: 20,
-      estimatedTimeInMins: 40,
-    }),
-  );
-  response.write(await handleGetAllTasks());
-  response.write(
-    await handleUpdateTask("test", {
-      name: "newTest",
-      description: "This is an updated test task",
-      pay: 15,
-      estimatedTimeInMins: 35,
-    }),
-  );
-  response.write(await handleDeleteTask("cleaning"));
+  // response.write(
+  //   await handleAddTask({
+  //     name: "cleaning",
+  //     description: "Clean the house",
+  //     pay: 20,
+  //     estimatedTimeInMins: 40,
+  //   }),
+  // );
+  // response.write(await handleGetAllTasks());
+  // response.write(
+  //   await handleUpdateTask("test", {
+  //     name: "newTest",
+  //     description: "This is an updated test task",
+  //     pay: 15,
+  //     estimatedTimeInMins: 35,
+  //   }),
+  // );
+  // response.write(await handleDeleteTask("cleaning"));
   response.end("Hello World <Aadi>");
 }).listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);

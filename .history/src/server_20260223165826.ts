@@ -86,7 +86,7 @@ createServer(async function (
   response.writeHead(200, { "Content-Type": "text/plain" });
   response.write(
     await handleAddTask({
-      name: "test",
+      name: "",
       description: "This is a test task",
       pay: 10,
       estimatedTimeInMins: 30,
