@@ -45,26 +45,26 @@ async function initialize(
   }
 }
 
-async function addTask(task: Task): Promise<Task> {
-  if (!tasksCollection) {
-    throw new DatabaseError("Collection not initialized");
-  }
-  try {
-    isValid(task.name, task.description, task.pay, task.estimatedTimeInMins);
-    await tasksCollection.insertOne(task);
-    return task;
-  } catch (err: unknown) {
-    if (err instanceof DatabaseError) {
-      throw err;
-    } else if (err instanceof Error) {
-      console.log(err.message);
-      throw new DatabaseError(err.message);
-    } else {
-      throw new DatabaseError(
-        "An unknown error occurred in addTask. Should not happen",
-      );
+async function addTask(task: Task): Promise<Task>{
+    if (!tasksCollection) {
+        throw new DatabaseError("Collection not initialized");
     }
-  }
+    try{
+        isValid(task.name, task.description, task.pay, task.estimatedTimeInMins);
+        await tasksCollection.insertOne(task);
+        return task;
+    } catch (err: unknown) {
+        if (err instanceof DatabaseError) {
+            throw err;
+        } else if (err instanceof Error) {
+            console.log(err.message);
+            throw new DatabaseError(err.message);
+        } else {
+            throw new DatabaseError(
+                "An unknown error occurred in addTask. Should not happen",
+            );
+        }
+    }
 }
 
 async function getSingleTask(name: string): Promise<Task> {
@@ -182,9 +182,9 @@ async function close(): Promise<void> {
     await client.close();
   }
 }
-export {
+module.exports = {
   initialize,
-  addTask,
+    addTask,
   getSingleTask,
   getAllTasks,
   updateTask,

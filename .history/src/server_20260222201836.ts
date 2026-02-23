@@ -1,5 +1,5 @@
 import { createServer, IncomingMessage, ServerResponse } from "http";
-import * as model from "./models/taskModelMongoDb.js";
+const model = import("./models/taskModelMongoDb.js");
 import type { Task } from "./models/taskModelMongoDb.js";
 const port: number = 1339;
 const initialized = model.initialize("tasksDb", true, "tasks");
@@ -16,28 +16,15 @@ async function handleAddTask(task: Task): Promise<string> {
     }
   }
 }
-async function handleGetSingleTask(name: string): Promise<string> {
-  try {
-    const result: Task = await model.getSingleTask(name);
-    return (
-      "Successfully found task: '" +
-      result.name +
-      "' description: '" +
-      result.description +
-      "' pay: '" +
-      result.pay +
-      "' estimatedTimeInMins: '" +
-      result.estimatedTimeInMins +
-      "'\n"
-    );
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      return "Error getting task: " + err.message + "\n";
-    } else {
-      return "An unknown error occurred while getting task. Should not happen\n";
-    }
-  }
-}
+//     try{
+//         const result: Task = await model.addTask(task);
+
+// async function handleGetSingleTask(name: string): Promise<string> {
+//     try{
+//         const result: Task = await model.getSingleTask(name);
+//         return "Successfully found task: '" + result.name + "' description: '" + result.description + "' pay: '" + result.pay + "' estimatedTimeInMins: '" + result.estimatedTimeInMins + "'\n";
+//     } catch (err: unknown)
+// }
 
 createServer(async function (
   request: IncomingMessage,
@@ -52,7 +39,6 @@ createServer(async function (
       estimatedTimeInMins: 30,
     }),
   );
-  response.write(await handleGetSingleTask("test"));
   response.end("Hello World <yourname>");
 }).listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
