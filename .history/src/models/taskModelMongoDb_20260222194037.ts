@@ -155,17 +155,11 @@ async function deleteTask(name: string): Promise<void> {
     }
   }
 }
-async function close(): Promise<void> {
-  if (client) {
-    await client.close();
-  }
-}
 module.exports = {
   initialize,
   getSingleTask,
   getAllTasks,
   updateTask,
   deleteTask,
-  close,
 };
 export type { Task };
