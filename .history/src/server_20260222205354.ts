@@ -54,30 +54,6 @@ async function handleGetAllTasks(): Promise<string> {
     }
   }
 }
-async function handleUpdateTask(name: string, task: Task): Promise<string> {
-  try {
-    const result: Task = await model.updateTask(name, task);
-    return "Successfully updated task: '" + result.name + "'\n";
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      return "Error updating task: " + err.message + "\n";
-    } else {
-      return "An unknown error occurred while updating task. Should not happen\n";
-    }
-  }
-}
-async function handleDeleteTask(name: string): Promise<string> {
-  try {
-    await model.deleteTask(name);
-    return "Successfully deleted task: '" + name + "'\n";
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      return "Error deleting task: " + err.message + "\n";
-    } else {
-      return "An unknown error occurred while deleting task. Should not happen\n";
-    }
-  }
-}
 
 createServer(async function (
   request: IncomingMessage,
@@ -102,15 +78,6 @@ createServer(async function (
     }),
   );
   response.write(await handleGetAllTasks());
-  response.write(
-    await handleUpdateTask("test", {
-      name: "newTest",
-      description: "This is an updated test task",
-      pay: 15,
-      estimatedTimeInMins: 35,
-    }),
-  );
-  response.write(await handleDeleteTask("cleaning"));
   response.end("Hello World <yourname>");
 }).listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
